@@ -10,11 +10,23 @@ class Calculation
 
     protected $cpuCore;
 
+    protected $cpuLimit;
+
+    protected $address;
+
+    protected $traffic;
+
     protected $memoryPrice;
 
     protected $diskPrice;
 
-    protected $cpuPrice;
+    protected $cpuCorePrice;
+
+    protected $cpuLimitPrice;
+
+    protected $addressPrice;
+
+    protected $trafficPrice;
 
     public static function instance()
     {
@@ -57,6 +69,37 @@ class Calculation
         return $this->cpuCore;
     }
 
+    public function setCpuLimit($limit)
+    {
+        $this->cpuLimit = $limit;
+
+        return $this;
+    }
+
+    public function getCpuLimit()
+    {
+        return $this->cpuLimit;
+    }
+
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setTraffic($traffic)
+    {
+        $this->traffic = $traffic;
+
+        return $this;
+    }
+
     public function setMemoryPrice($price)
     {
         $this->memoryPrice = $price;
@@ -81,29 +124,74 @@ class Calculation
         return $this->diskPrice;
     }
 
-    public function setCpuPrice($price)
+    public function setCpuCorePrice($price)
     {
-        $this->cpuPrice = $price;
+        $this->cpuCorePrice = $price;
 
         return $this;
     }
 
-    public function getCpuPrice()
+    public function getCpuCorePrice()
     {
-        return $this->cpuPrice;
+        return $this->cpuCorePrice;
     }
 
-    protected function calculate()
+    public function setCpuLimitPrice($price)
+    {
+        $this->cpuLimitPrice = $price;
+
+        return $this;
+    }
+
+    public function getCpuLimitPrice()
+    {
+        return $this->cpuLimitPrice;
+    }
+
+    public function setAddressPrice($price)
+    {
+        $this->addressPrice = $price;
+
+        return $this;
+    }
+
+    public function getAddressPrice()
+    {
+        return $this->addressPrice;
+    }
+
+    public function setTrafficPrice($price)
+    {
+        $this->trafficPrice = $price;
+
+        return $this;
+    }
+
+    public function getTrafficPrice()
+    {
+        return $this->trafficPrice;
+    }
+
+    public function getMachineMonthlyPrice()
     {
         $prices = [
-            ($this->memorySize / 1024) * $this->memoryPrice, ($this->diskSize / 20) * $this->diskPrice, ($this->cpuCore / 1) * $this->cpuPrice,
+            ($this->memorySize / 1024) * $this->memoryPrice, ($this->diskSize * $this->diskPrice), ($this->cpuCore * $this->cpuCorePrice), ($this->cpuLimit / 1000) * $this->cpuLimitPrice, ($this->address * $this->addressPrice)
         ];
 
         return array_sum($prices);
     }
 
-    public function getPrice()
+    public function getMachineHourlyPrice()
     {
-        return $this->calculate();
+        $monthlyPrice = $this->getMachineMonthlyPrice();
+
+        return ($monthlyPrice / 720);
+    }
+
+    public function getTrafficMonthlyPrice()
+    {
+        $monthlyPrice = ($this->traffic * $this->trafficPrice);
+
+        return $monthlyPrice;
     }
 }
