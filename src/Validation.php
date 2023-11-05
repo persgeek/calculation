@@ -128,8 +128,7 @@ class Validation
         $fail = ($this->memorySize > $this->maxMemorySize);
 
         if ($fail) {
-
-            $this->messages[] = 'The memory size is not valid.';
+            $this->messages[] = 'messages.max_memory_size';
         }
     }
 
@@ -138,8 +137,7 @@ class Validation
         $fail = ($this->diskSize > $this->maxDiskSize);
 
         if ($fail) {
-
-            $this->messages[] = 'The disk size is not valid.';
+            $this->messages[] = 'messages.max_disk_size';
         }
     }
 
@@ -148,8 +146,7 @@ class Validation
         $fail = ($this->cpuCore > $this->maxCpuCore);
 
         if ($fail) {
-
-            $this->messages[] = 'The cpu core is not valid.';
+            $this->messages[] = 'messages.max_cpu_core';
         }
     }
 
@@ -158,8 +155,7 @@ class Validation
         $fail = ($this->cpuLimit > $this->maxCpuLimit);
 
         if ($fail) {
-
-            $this->messages[] = 'The cpu limit is not valid.';
+            $this->messages[] = 'messages.max_cpu_limit';
         }
     }
 
